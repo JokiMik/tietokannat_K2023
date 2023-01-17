@@ -1,0 +1,101 @@
+a) Minkä nimisiä omistajia taulussa on ? Tulosta omistajan nimi vain kerran.
+
+mysql> SELECT DISTINCT owner FROM pet;
++--------+
+| owner  |
++--------+
+| Harold |
+| Gwen   |
+| Benny  |
+| Diane  |
++--------+
+4 rows in set (0.01 sec)
+
+
+
+
+b) Tulosta lemmikkien nimet aakkosjärjestyksessä.
+
+mysql> SELECT name FROM pet ORDER BY name;
++----------+
+| name     |
++----------+
+| Bowser   |
+| Buffy    |
+| Chirpy   |
+| Claws    |
+| Fang     |
+| Fluffy   |
+| Slim     |
+| Whistler |
++----------+
+8 rows in set (0.00 sec)
+
+
+
+
+c) Tulosta kaikki elossa olevat lemmikit.
+
+mysql> SELECT * FROM pet WHERE death IS NULL;
++----------+--------+---------+------+------------+-------+
+| name     | owner  | species | sex  | birth      | death |
++----------+--------+---------+------+------------+-------+
+| Fluffy   | Harold | cat     | f    | 1993-02-04 | NULL  |
+| Claws    | Gwen   | cat     | m    | 1994-03-17 | NULL  |
+| Buffy    | Harold | dog     | f    | 1989-05-13 | NULL  |
+| Fang     | Benny  | dog     | m    | 1990-08-27 | NULL  |
+| Whistler | Gwen   | bird    | NULL | 1997-12-09 | NULL  |
+| Slim     | Benny  | snake   | m    | 1996-04-29 | NULL  |
++----------+--------+---------+------+------------+-------+
+6 rows in set (0.00 sec)
+
+
+
+
+d) Tulosta kaikki omistajat, joiden nimi alkaa kirjaimella H.
+
+mysql> SELECT owner FROM pet WHERE owner LIKE "H%";
++--------+
+| owner  |
++--------+
+| Harold |
+| Harold |
++--------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT DISTINCT owner FROM pet WHERE owner LIKE "H%";
++--------+
+| owner  |
++--------+
+| Harold |
++--------+
+1 row in set (0.00 sec)
+
+
+
+
+e) Tulosta kaikki lemmikit, joiden nimessä esiintyy kirjaimet ff.
+
+mysql> SELECT * FROM pet WHERE name LIKE "%ff%";
++--------+--------+---------+------+------------+-------+
+| name   | owner  | species | sex  | birth      | death |
++--------+--------+---------+------+------------+-------+
+| Fluffy | Harold | cat     | f    | 1993-02-04 | NULL  |
+| Buffy  | Harold | dog     | f    | 1989-05-13 | NULL  |
++--------+--------+---------+------+------------+-------+
+2 rows in set (0.00 sec)
+
+
+
+
+f) Tulosta kaikki lemmikit, joiden nimessä on 4 kirjainta.
+
+mysql> SELECT * FROM pet WHERE name LIKE "____";
++------+-------+---------+------+------------+-------+
+| name | owner | species | sex  | birth      | death |
++------+-------+---------+------+------------+-------+
+| Fang | Benny | dog     | m    | 1990-08-27 | NULL  |
+| Slim | Benny | snake   | m    | 1996-04-29 | NULL  |
++------+-------+---------+------+------------+-------+
+2 rows in set (0.00 sec)
+
