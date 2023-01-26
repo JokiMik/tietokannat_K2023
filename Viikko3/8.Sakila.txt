@@ -1,0 +1,77 @@
+a) Tulosta DVD-elokuvien kielet (language) aakkosjärjestyksessä
+
+mysql> SELECT * FROM language ORDER BY name ASC;
++-------------+----------+---------------------+
+| language_id | name     | last_update         |
++-------------+----------+---------------------+
+|           1 | English  | 2006-02-15 05:02:19 |
+|           5 | French   | 2006-02-15 05:02:19 |
+|           6 | German   | 2006-02-15 05:02:19 |
+|           2 | Italian  | 2006-02-15 05:02:19 |
+|           3 | Japanese | 2006-02-15 05:02:19 |
+|           4 | Mandarin | 2006-02-15 05:02:19 |
++-------------+----------+---------------------+
+6 rows in set (0.00 sec)
+
+
+
+b) Tulosta kaikkien niiden näyttelijöiden elokuvat, joiden sukunimi on Temple.
+
+mysql> SELECT title,first_name,last_name FROM film JOIN film_actor ON film.film_id=film_actor.film_id JOIN actor ON film_actor.actor_id=actor.actor_id WHERE last_name='Temple';
++-------------------------+------------+-----------+
+| title                   | first_name | last_name |
++-------------------------+------------+-----------+
+| ACADEMY DINOSAUR        | MENA       | TEMPLE    |
+| ALABAMA DEVIL           | MENA       | TEMPLE    |
+| BALLOON HOMEWARD        | MENA       | TEMPLE    |
+| BEACH HEARTBREAKERS     | MENA       | TEMPLE    |
+| BUTTERFLY CHOCOLAT      | MENA       | TEMPLE    |
+....
+104 rows in set (0.00 sec)
+
+
+
+c) Tulosta elokuvassa "Ghost Groundhog" näytelleet näyttelijät.
+
+mysql> SELECT title,first_name,last_name FROM film JOIN film_actor ON film.film_id=film_actor.film_id JOIN actor ON film_actor.actor_id=actor.actor_id WHERE title='Ghost Groundhog';
++-----------------+------------+-----------+
+| title           | first_name | last_name |
++-----------------+------------+-----------+
+| GHOST GROUNDHOG | DAN        | HARRIS    |
+| GHOST GROUNDHOG | KENNETH    | TORN      |
+| GHOST GROUNDHOG | KEVIN      | GARLAND   |
+| GHOST GROUNDHOG | RUSSELL    | TEMPLE    |
+| GHOST GROUNDHOG | RENEE      | BALL      |
++-----------------+------------+-----------+
+5 rows in set (0.00 sec)
+
+
+
+d) Montako kauhuelokuvaa ("Horror") tietokannassa on ?
+
+mysql> SELECT name,COUNT(*) AS Lukumaara FROM category JOIN film_category ON category.category_id=film_category.category_id JOIN film ON film_category.film_id=film.film_id WHERE name='Horror';
++--------+-----------+
+| name   | Lukumaara |
++--------+-----------+
+| Horror |        56 |
++--------+-----------+
+1 row in set (0.00 sec)
+
+
+
+e) Tulosta kaikki kauhuelokuvat.
+
+mysql> SELECT title FROM category JOIN film_category ON category.category_id=film_category.category_id JOIN film ON film_category.film_id=film.film_id WHERE name='Horror';
++-----------------------------+
+| title                       |
++-----------------------------+
+| ACE GOLDFINGER              |
+| AFFAIR PREJUDICE            |
+| AIRPORT POLLOCK             |
+| ALABAMA DEVIL               |
+| ALI FOREVER                 |
+| ANALYZE HOOSIERS            |
+| ANYTHING SAVANNAH           |
+| ARABIA DOGMA                |
+...
+56 rows in set (0.00 sec)
