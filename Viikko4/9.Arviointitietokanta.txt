@@ -1,0 +1,47 @@
+mysql> SELECT * FROM opintojakso;
++---------------+------------------------------------+----------+---------+
+| idOpintojakso | Nimi                               | Koodi    | Laajuus |
++---------------+------------------------------------+----------+---------+
+|             1 | Olio-ohjelmointi                   | YNG22229 |       5 |
+|             2 | Tietokannnat ja rajapinnat         | YNG22230 |       5 |
+|             3 | Johdatus ohjelmointiin             | INO2234  |       5 |
+|             4 | Engineer English                   | YNG22231 |       5 |
+|             5 | Soveltava matematiikka ja fysiikka | YNG22232 |       5 |
+|             6 | Tietotekniikan sovellusprojekti    | YNG22234 |      15 |
+|             7 | VHDL-kieli                         | YNG22235 |       3 |
++---------------+------------------------------------+----------+---------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM opiskelija;
++--------------+---------+----------+------------------+--------------+----------------+
+| idOpiskelija | Etunimi | Sukunimi | Opiskelijanumero | Luokkatunnus | Osoite         |
++--------------+---------+----------+------------------+--------------+----------------+
+|            1 | Aku     | Ankka    | 1313             | TVT22SPL     | Ankkalinna 313 |
+|            2 | Roope   | Ankka    | 1414             | TVT22SPL     | Ankkalinna 314 |
+|            3 | Iines   | Ankka    | 1515             | TVT22SPL     | Ankkalinna 315 |
+|            4 | Mikki   | Hiiri    | 1616             | TVT22SPO     | Ankkalinna 316 |
+|            5 | Hessu   | Hopo     | 1717             | TVT22SPO     | Ankkalinna 317 |
+|            6 | Pelle   | Peloton  | 1818             | TVT22SPL     | Ankkalinna 318 |
++--------------+---------+----------+------------------+--------------+----------------+
+6 rows in set (0.00 sec)
+
+
+
+mysql> SELECT etunimi,sukunimi,arvosana,paivays,nimi FROM Arviointi JOIN Opiskelija on Opiskelija.idOpiskelija = Arviointi.idOpiskelija JOIN Opintojakso on Opintojakso.idOpintojakso = Arviointi.idOpintojakso;
++---------+----------+----------+------------+------------------------------------+
+| etunimi | sukunimi | arvosana | paivays    | nimi                               |
++---------+----------+----------+------------+------------------------------------+
+| Aku     | Ankka    |        1 | 2023-01-30 | Olio-ohjelmointi                   |
+| Aku     | Ankka    |        5 | 2023-01-30 | Tietokannnat ja rajapinnat         |
+| Aku     | Ankka    |        4 | 2023-01-30 | Johdatus ohjelmointiin             |
+| Aku     | Ankka    |        0 | 2023-01-30 | Engineer English                   |
+| Roope   | Ankka    |        4 | 2023-01-30 | Olio-ohjelmointi                   |
+| Roope   | Ankka    |        2 | 2023-01-30 | Soveltava matematiikka ja fysiikka |
+| Iines   | Ankka    |        5 | 2023-01-30 | Tietotekniikan sovellusprojekti    |
+| Iines   | Ankka    |        4 | 2023-01-30 | Engineer English                   |
+| Mikki   | Hiiri    |        5 | 2023-01-30 | Tietotekniikan sovellusprojekti    |
+| Mikki   | Hiiri    |        4 | 2023-01-30 | Olio-ohjelmointi                   |
+| Hessu   | Hopo     |        4 | 2023-01-30 | Tietokannnat ja rajapinnat         |
+| Hessu   | Hopo     |        5 | 2023-01-30 | Engineer English                   |
++---------+----------+----------+------------+------------------------------------+
+12 rows in set (0.00 sec)

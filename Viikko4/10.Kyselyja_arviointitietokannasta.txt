@@ -1,0 +1,72 @@
+1) Tulosta kaikki opiskelijat, joilla on tietokannassa hylätty arvosana
+
+mysql> SELECT etunimi,sukunimi,arvosana,paivays,nimi FROM Arviointi JOIN Opiskelija on Opiskelija.idOpiskelija = Arviointi.idOpiskelija JOIN Opintojakso on Opintojakso.idOpintojakso = Arviointi.idOpintojakso WHERE arvosana = 0;
++---------+----------+----------+------------+------------------+
+| etunimi | sukunimi | arvosana | paivays    | nimi             |
++---------+----------+----------+------------+------------------+
+| Aku     | Ankka    |        0 | 2023-01-30 | Engineer English |
++---------+----------+----------+------------+------------------+
+1 row in set (0.00 sec)
+
+
+
+2) Tulosta kaikki Engineer English -kurssin hyväksytysti suorittaneet
+
+mysql> SELECT etunimi,sukunimi,arvosana,paivays,nimi FROM Arviointi JOIN Opiskelija on Opiskelija.idOpiskelija = Arviointi.idOpiskelija JOIN Opintojakso on Opintojakso.idOpintojakso = Arviointi.idOpintojakso WHERE arvosana > 0 AND nimi = 'Engineer English';
++---------+----------+----------+------------+------------------+
+| etunimi | sukunimi | arvosana | paivays    | nimi             |
++---------+----------+----------+------------+------------------+
+| Iines   | Ankka    |        4 | 2023-01-30 | Engineer English |
+| Hessu   | Hopo     |        5 | 2023-01-30 | Engineer English |
++---------+----------+----------+------------+------------------+
+2 rows in set (0.00 sec)
+
+
+
+3) Mille kursseille Hessu on osallistunut? 
+
+mysql> SELECT etunimi,sukunimi,arvosana,paivays,nimi FROM Arviointi JOIN Opiskelija on Opiskelija.idOpiskelija = Arviointi.idOpiskelija JOIN Opintojakso on Opintojakso.idOpintojakso = Arviointi.idOpintojakso WHERE arvosana IS NOT NULL AND etunimi = 'Hessu';
++---------+----------+----------+------------+----------------------------+
+| etunimi | sukunimi | arvosana | paivays    | nimi                       |
++---------+----------+----------+------------+----------------------------+
+| Hessu   | Hopo     |        4 | 2023-01-30 | Tietokannnat ja rajapinnat |
+| Hessu   | Hopo     |        5 | 2023-01-30 | Engineer English           |
++---------+----------+----------+------------+----------------------------+
+2 rows in set (0.00 sec)
+
+
+
+4) Mikä on Akun opintosuoritusten keskiarvo ?
+
+mysql> SELECT AVG(arvosana),etunimi,sukunimi FROM Arviointi JOIN Opiskelija on Opiskelija.idOpiskelija = Arviointi.idOpiskelija JOIN Opintojakso on Opintojakso.idOpintojakso = Arviointi.idOpintojakso WHERE sukunimi = 'Ankka' AND etunimi = 'Aku';
++---------------+---------+----------+
+| AVG(arvosana) | etunimi | sukunimi |
++---------------+---------+----------+
+|        2.5000 | Aku     | Ankka    |
++---------------+---------+----------+
+1 row in set (0.00 sec)
+
+
+
+5) Millä opintojaksoilla ei ole yhtään suoritusmerkintää?
+
+mysql> SELECT arvosana,nimi FROM Arviointi RIGHT JOIN Opintojakso ON Opintojakso.idOpintojakso = Arviointi.idOpintojakso;
++----------+------------------------------------+
+| arvosana | nimi                               |
++----------+------------------------------------+
+|        1 | Olio-ohjelmointi                   |
+|        4 | Olio-ohjelmointi                   |
+|        4 | Olio-ohjelmointi                   |
+|        5 | Tietokannnat ja rajapinnat         |
+|        4 | Tietokannnat ja rajapinnat         |
+|        4 | Johdatus ohjelmointiin             |
+|        0 | Engineer English                   |
+|        4 | Engineer English                   |
+|        5 | Engineer English                   |
+|        2 | Soveltava matematiikka ja fysiikka |
+|        5 | Tietotekniikan sovellusprojekti    |
+|        5 | Tietotekniikan sovellusprojekti    |
+|     NULL | VHDL-kieli                         |
++----------+------------------------------------+
+13 rows in set (0.00 sec)
+
